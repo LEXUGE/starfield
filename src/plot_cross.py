@@ -37,7 +37,7 @@ def xcross(t, w):
     return w[0]
 
 
-def add_orbit(H0, q0):
+def add_orbit(label, H0, q0):
     # v0 = sqrt(p_z^2 + p_r^2)
     v0 = np.sqrt(2 * (H0 - EffPotential(q0)))
     theta = -0.3
@@ -82,7 +82,7 @@ def add_orbit(H0, q0):
         # print("i-th event", soln.sol(soln.t_events[0][i]))
         r_crosses.append(soln.sol(soln.t_events[0][i])[1])
         pr_crosses.append(soln.sol(soln.t_events[0][i])[3])
-    plt.scatter(r_crosses, pr_crosses, s=1)
+    plt.scatter(r_crosses, pr_crosses, s=0.5, label="r_0 = %1.2f" % label)
 
 
 def main():
@@ -99,8 +99,9 @@ def main():
         # q[0] is z, q[1] is r
         # change the value of initial r from -0.3 to 0.2, with adaptive steps based on `norb`.
         init_q = (0, -0.3 + 0.5 * i / (norb - 1))
-        add_orbit(H0, init_q)
+        add_orbit(-0.3 + 0.5 * i / (norb - 1), H0, init_q)
 
+    plt.legend()
     plt.savefig(FIG_PATH)
 
 

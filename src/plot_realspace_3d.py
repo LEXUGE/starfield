@@ -2,7 +2,7 @@ import numpy as np
 from scipy.integrate import solve_ivp as solve
 import matplotlib.pyplot as plt
 
-FIG_PATH = "outputs/realspace_plot_%i.svg"
+FIG_PATH = "outputs/realspace_plot_3d_%i.svg"
 
 
 # Our time-independent Hamiltonian H(q,p)
@@ -76,11 +76,13 @@ def add_orbit(H0, q0):
 
     r_trajectories = []
     z_trajectories = []
+    pr_trajectories = []
     for i in range(0, n, 1):
         r_trajectories.append(soln.y[1, i])
         z_trajectories.append(soln.y[0, i])
+        pr_trajectories.append(soln.y[3, i])
 
-    plt.plot(r_trajectories, z_trajectories, linewidth=0.5)
+    plt.plot(r_trajectories, z_trajectories, pr_trajectories, linewidth=0.5)
 
 
 def main():
@@ -90,14 +92,18 @@ def main():
     norb = 10
     for i in range(0, norb, 1):
         plt.clf()
+        fig = plt.figure()
+        ax = fig.add_subplot(projection="3d")
         plt.title(
-            "Real Space Projection onto r-z plane with initial r = %1.2f"
+            "Projection onto r-z-p_r space with initial r = %1.2f"
             % (-0.3 + 0.5 * i / (norb - 1))
         )
-        plt.xlim(-0.5, 0.5)
-        plt.ylim(-0.5, 0.5)
-        plt.xlabel("r")
-        plt.ylabel("z")
+        ax.set_xlim(-0.5, 0.5)
+        ax.set_ylim(-0.5, 0.5)
+        ax.set_zlim(-0.5, 0.5)
+        ax.set_xlabel("r")
+        ax.set_ylabel("z")
+        ax.set_zlabel("p_r")
         # q[0] is z, q[1] is r
         # change the value of initial r from -0.3 to 0.2, with adaptive steps based on `norb`.
         init_q = (0, -0.3 + 0.5 * i / (norb - 1))
