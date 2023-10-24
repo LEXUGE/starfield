@@ -2,7 +2,7 @@ import numpy as np
 from scipy.integrate import solve_ivp as solve
 import matplotlib.pyplot as plt
 
-FIG_PATH = "outputs/realspace_plot_3d_%i.svg"
+FIG_PATH = "outputs/HH_realspace_3d/plot_%i.svg"
 
 
 # Our time-independent Hamiltonian H(q,p)
@@ -109,7 +109,7 @@ def main():
         init_q = (0, -0.3 + 0.5 * i / (norb - 1))
         add_orbit(H0, init_q)
 
-        plt.savefig(FIG_PATH % i)
+        plt.savefig(FIG_PATH % (i + 1))
 
 
 main()

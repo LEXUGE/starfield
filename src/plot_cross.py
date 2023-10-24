@@ -2,7 +2,7 @@ import numpy as np
 from scipy.integrate import solve_ivp as solve
 import matplotlib.pyplot as plt
 
-FIG_PATH = "outputs/initial_plot.svg"
+FIG_PATH = "outputs/HH_surface_of_section/plot.svg"
 
 
 # Our time-independent Hamiltonian H(q,p)
